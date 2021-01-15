@@ -5,13 +5,16 @@ const { client } = __model
 
 const getAllProducts = async (request, h) => {
     try {
+        console.log(request.query)
         const { page = 1, rows = 50, order = 'id asc', keyword } = request.query
-        const sqlQuery = `select * from products${keyword ? ` where name like '%${keyword}%'` : ''}
-                          order by ${order} offset ${page - 1} limit ${rows}`
+        const sqlQuery = `select *, count(*) over() as rows
+                          from products${keyword ? ` where Lower(name) like Lower('%${keyword}%')` : ''}
+                          order by ${order} offset ${(page - 1) * rows} limit ${rows}`
     
         const sqlResponse = await client.query(sqlQuery)
-        console.log({ sqlResponse: sqlResponse.rows })
-        return onSuccessResponse({ h, payload: sqlResponse.rows })
+        console.log({ sqlResponse: sqlResponse })
+        const totalRows =sqlResponse.rows.length > 0 ? Number(sqlResponse.rows[0].rows) : 0
+        return onSuccessResponse({ h, rows: totalRows, payload: sqlResponse.rows })
     } catch (error) {
         console.log({ error })
         return onErrorResponse({ h, payload: error.message })        

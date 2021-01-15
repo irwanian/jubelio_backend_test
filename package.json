@@ -16,7 +16,6 @@
     "dotenv": "^8.2.0",
     "hapi-routes-loader": "^0.3.0",
     "html-to-text": "^6.0.0",
-    "moment": "^2.29.1",
     "nodemon": "^2.0.7",
     "pg": "^8.5.1",
     "pg-format": "^1.0.4",
