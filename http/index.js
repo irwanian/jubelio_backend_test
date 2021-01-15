@@ -23,6 +23,12 @@ const init = async () => {
     }
 ])
 
+    server.route({
+        method: 'GET',
+        path: '/',
+        handler: (request, h) => h.response('BANZAI!!')
+    })
+
     await server.start();
     console.log(`Server running on ${server.info.uri}`);
 };
