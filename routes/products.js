@@ -11,5 +11,11 @@ const getProduct = {
     path: '{id}',
     handler: handler.getProduct
 }
+
+const downloadProductsData = {
+  method: 'GET',
+  path: 'download-products',
+  handler: handler.downloadProductsData
+}
    
-  module.exports = [getAllProducts, getProduct]
+  module.exports = [getAllProducts, getProduct, downloadProductsData]

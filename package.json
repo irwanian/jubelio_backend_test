@@ -14,7 +14,9 @@
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "hapi-routes-loader": "^0.3.0",
+    "moment": "^2.29.1",
     "pg": "^8.5.1",
+    "pg-format": "^1.0.4",
     "xml2js": "^0.4.23"
   }
 }

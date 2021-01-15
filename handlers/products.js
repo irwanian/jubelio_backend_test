@@ -1,5 +1,7 @@
+const format = require('pg-format')
 const { onSuccessResponse, onErrorResponse } = __lib('responses')
-const { client } = require('../model')
+const { getEleveniaProductDetail } = __lib('eleveniaDataDownloader')
+const { client } = __model
 
 const getAllProducts = async (request, h) => {
     try {
@@ -31,7 +33,33 @@ const getProduct = async (request, h) => {
     }
 }
 
+const downloadProductsData = async (request, h) => {
+    try {
+        const page = request.query.page
+        const result = await getEleveniaProductDetail(page)
+        const dataWrittenIntoDb = await insertEleveniaProductToDB(result)
+        console.log({ dataWrittenIntoDb: dataWrittenIntoDb.rows })
+        
+        return onSuccessResponse({ h, payload: dataWrittenIntoDb.rows })
+    } catch (error) {
+        return onErrorResponse({ h, payload: error.message })
+    }
+}
+
+const insertEleveniaProductToDB = async (values) => {
+    try {
+        const sqlQuery = format(`insert into products ("name", "sku", "image", "description", "price")
+        values %L returning *`, values)
+        // console.log({ values })
+        return await client.query(sqlQuery)
+    } catch (error) {
+        console.log({ error })
+        throw error        
+    }
+}
+
 module.exports = {
     getAllProducts,
-    getProduct
+    getProduct,
+    downloadProductsData
 }
