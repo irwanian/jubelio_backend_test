@@ -10,7 +10,7 @@ const init = async () => {
 
     const server = Hapi.server({
         port: PORT,
-        host: 'https://secure-peak-22813.herokuapp.com/'
+        host: HOST
     });
 
     await server.register([inert, 
