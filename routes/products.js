@@ -17,5 +17,10 @@ const downloadProductsData = {
   path: 'download-products',
   handler: handler.downloadProductsData
 }
-   
-  module.exports = [getAllProducts, getProduct, downloadProductsData]
+ 
+const removeProduct = {
+  method: 'DELETE',
+  path: '{id}/delete',
+  handler: handler.removeProduct
+}  
+  module.exports = [getAllProducts, getProduct, downloadProductsData, removeProduct]

@@ -33,13 +33,28 @@ const getProduct = async (request, h) => {
     }
 }
 
+const removeProduct = async (request, h) => {
+    try {
+        const { id } = request.params
+        console.log(request.params)
+        const sqlQuery = `delete from products where id = ${id} returning *`
+    
+        const sqlResponse = await client.query(sqlQuery)
+        console.log({ sqlResponse: sqlResponse.rows })
+
+        return onSuccessResponse({ h, payload: sqlResponse.rows })
+    } catch (error) {
+        console.log({ error })
+        return onErrorResponse({ h, payload: error.message })        
+    }
+}
 const downloadProductsData = async (request, h) => {
     try {
         const page = request.query.page
         const result = await getEleveniaProductDetail(page)
         const dataWrittenIntoDb = await insertEleveniaProductToDB(result)
         console.log({ dataWrittenIntoDb: dataWrittenIntoDb.rows })
-        
+
         return onSuccessResponse({ h, payload: dataWrittenIntoDb.rows })
     } catch (error) {
         return onErrorResponse({ h, payload: error.message })
@@ -61,5 +76,6 @@ const insertEleveniaProductToDB = async (values) => {
 module.exports = {
     getAllProducts,
     getProduct,
-    downloadProductsData
+    downloadProductsData,
+    removeProduct
 }
