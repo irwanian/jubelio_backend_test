@@ -7,9 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "engines": {
-    "node": "14.15.3"
-  },
   "author": "Irwan Ramadhan",
   "license": "ISC",
   "dependencies": {
@@ -23,5 +20,8 @@
     "pg": "^8.5.1",
     "pg-format": "^1.0.4",
     "xml2js": "^0.4.23"
+  },
+  "engines": {
+    "node": "14.15.3"
   }
 }
