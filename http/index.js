@@ -10,7 +10,13 @@ const init = async () => {
 
     const server = Hapi.server({
         port: PORT || 2021,
-        host: '0.0.0.0'
+        host: '0.0.0.0',
+        routes: {
+            cors: {
+                origin: ['*'],
+                maxAge: 60
+            }
+        }
     });
 
     await server.register([inert, 
