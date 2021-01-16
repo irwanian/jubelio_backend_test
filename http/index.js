@@ -10,7 +10,7 @@ const init = async () => {
 
     const server = Hapi.server({
         port: PORT || 2021,
-        host: HOST || 'localhost'
+        host: '0.0.0.0'
     });
 
     await server.register([inert, 
