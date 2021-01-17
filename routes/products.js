@@ -17,10 +17,16 @@ const downloadProductsData = {
   path: 'download-products',
   handler: handler.downloadProductsData
 }
- 
+
+const updateProduct = {
+  method: 'PUT',
+  path: '{id}',
+  handler: handler.updateProduct
+}
+
 const removeProduct = {
   method: 'DELETE',
   path: '{id}/delete',
   handler: handler.removeProduct
 }  
-  module.exports = [getAllProducts, getProduct, downloadProductsData, removeProduct]
+  module.exports = [getAllProducts, getProduct, downloadProductsData, removeProduct, updateProduct]
